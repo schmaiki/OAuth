@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
-	_ "github.com/dghubble/gologin"
+	gologin "github.com/dghubble/gologin"
 	gologin2 "github.com/dghubble/gologin/v2"
 	"github.com/dghubble/gologin/v2/github"
 	"github.com/dghubble/sessions"
@@ -43,7 +43,7 @@ func New(config *Config) *http.ServeMux {
 		Endpoint:     githubOAuth2.Endpoint,
 	}
 
-	stateConfig := gologin2.DebugOnlyCookieConfig
+	stateConfig := gologin.DebugOnlyCookieConfig
 	mux.Handle("/github/login", github.StateHandler(gologin2.CookieConfig(stateConfig), github.LoginHandler(oauth2Config, nil)))
 	mux.Handle("/github/callback", github.StateHandler(gologin2.CookieConfig(stateConfig), github.CallbackHandler(oauth2Config, issueSession(), nil)))
 	return mux

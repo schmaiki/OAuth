@@ -82,7 +82,8 @@ func profileHandler(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	_, error2 := fmt.Fprintf(w, `<p>You are logged in %s!</p><form action="/logout" method="post"><input type="submit" value="Logout"></form>`, session.Values[sessionUsername])
+	_, error2 := fmt.Fprintf(w, `<p>You are logged in %s!</p><form action="/logout" method="post">
+							<input type="submit" value="Logout"></form>`, session.Values[sessionUsername])
 	if error2 != nil {
 		return
 	}

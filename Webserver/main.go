@@ -3,16 +3,15 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/dghubble/gologin"
+	_ "github.com/dghubble/gologin"
 	gologin2 "github.com/dghubble/gologin/v2"
-	"log"
-	"net/http"
-	"os"
-
 	"github.com/dghubble/gologin/v2/github"
 	"github.com/dghubble/sessions"
 	"golang.org/x/oauth2"
 	githubOAuth2 "golang.org/x/oauth2/github"
+	"log"
+	"net/http"
+	"os"
 )
 
 const (
@@ -44,7 +43,7 @@ func New(config *Config) *http.ServeMux {
 		Endpoint:     githubOAuth2.Endpoint,
 	}
 
-	stateConfig := gologin.DebugOnlyCookieConfig
+	stateConfig := gologin2.DebugOnlyCookieConfig
 	mux.Handle("/github/login", github.StateHandler(gologin2.CookieConfig(stateConfig), github.LoginHandler(oauth2Config, nil)))
 	mux.Handle("/github/callback", github.StateHandler(gologin2.CookieConfig(stateConfig), github.CallbackHandler(oauth2Config, issueSession(), nil)))
 	return mux
